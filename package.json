@@ -1,0 +1,37 @@
+{
+  "name": "cross-style",
+  "version": "0.4.0",
+  "description": "Make your website to work on cross-browser.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "html",
+    "html5",
+    "js",
+    "css",
+    "css3",
+    "sass",
+    "scss",
+    "less",
+    "stylus"
+  ],
+  "author": "Phat Ly",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-cli": "*",
+    "grunt-browserify": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-stylus": "*",
+    "grunt-contrib-uglify": "*",
+    "jit-grunt": "*",
+    "load-grunt-config": "*",
+    "jquery": "1.11.3"
+  }
+}

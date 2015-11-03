@@ -1,0 +1,6 @@
+default:
+  - 'copy'
+  - 'browserify'
+  # - 'uglify'
+  - 'less'
+  - 'jade'

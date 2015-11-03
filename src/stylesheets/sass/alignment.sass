@@ -1,0 +1,16 @@
+@mixins h-text-center()
+{
+	text-align: center;
+	v-text-align: center;
+}
+
+@mixins v-text-center()
+{
+	v-text-align: center;
+}
+
+@mixins b-text-center()
+{
+	h-text-center();
+	v-text-center();
+}
