@@ -1,6 +1,6 @@
 module.exports = {
 	main: {
-		src: ['./src/global.js'],
-		dest: './build/js/tdo.js'
+		src: ['./src/scripts/main.js'],
+		dest: './build/js/cross-style.js'
 	}
 };

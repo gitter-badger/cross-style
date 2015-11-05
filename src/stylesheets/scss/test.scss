@@ -1,0 +1,13 @@
+@import 'alignment';
+
+.text-center {
+  @include h-text-center();
+}
+
+.v-text-center {
+  @include v-text-center();
+}
+
+.b-text-center {
+  @include b-text-center();
+}

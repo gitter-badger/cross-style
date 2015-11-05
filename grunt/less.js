@@ -6,7 +6,7 @@ module.exports = {
       optimization: 2
     },
     files: {
-      './build/css/tdo.css': ['./src/assets/less/**/*.less']
+      './build/stylesheets/test.css': ['./src/stylesheets/less/test.less']
     }
   }
 };
