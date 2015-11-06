@@ -1,3 +1,3 @@
 module.exports = {
-  'v-text-align': require('./alignment/v-text-align')
+  'cs-v-text-align': require('./alignment/v-text-align')
 };

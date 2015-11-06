@@ -10361,7 +10361,7 @@ module.exports = {
       keyCss = options.keyCss,
       valueCss = options.valueCss;
 
-    if ($ && keyCss == 'v-text-align') {
+    if ($) {
       switch (valueCss) {
         case 'center':
           $(window).resize(function() {
@@ -10379,7 +10379,7 @@ module.exports = {
 
 },{"jquery":1}],3:[function(require,module,exports){
 module.exports = {
-  'v-text-align': require('./alignment/v-text-align')
+  'cs-v-text-align': require('./alignment/v-text-align')
 };
 
 },{"./alignment/v-text-align":2}],4:[function(require,module,exports){

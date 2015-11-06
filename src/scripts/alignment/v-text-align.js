@@ -7,7 +7,7 @@ module.exports = {
       keyCss = options.keyCss,
       valueCss = options.valueCss;
 
-    if ($ && keyCss == 'v-text-align') {
+    if ($) {
       switch (valueCss) {
         case 'center':
           $(window).resize(function() {
