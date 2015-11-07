@@ -32,6 +32,7 @@
     "grunt-contrib-stylus": "*",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-uglify": "*",
+    "grunt-contrib-clean": "*",
     "jit-grunt": "*",
     "load-grunt-config": "*",
     "jquery": "1.11.3"

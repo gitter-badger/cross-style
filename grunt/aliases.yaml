@@ -1,16 +1,19 @@
 default:
+  - 'clean'
   - 'copy'
   - 'browserify'
   - 'uglify'
   - 'sass'
   - 'cssmin'
 cs-less:
+  - 'clean'
   - 'copy'
   - 'browserify'
   - 'uglify'
   - 'less'
   - 'cssmin'
 cs-stylus:
+  - 'clean'
   - 'copy'
   - 'browserify'
   - 'uglify'
