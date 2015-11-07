@@ -1,60 +1,3 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = {
-  handle: function(options) {
-    "use strict";
-
-    var selector = options.selector,
-      valueCss = options.valueCss;
-
-    switch (valueCss) {
-      case 'center':
-        var resizeHandler = function() {
-          var height = window.innerHeight;
-          var elements = document.querySelectorAll(selector);
-          for (var i = 0; i < elements.length; i++) {
-            var heightEle = elements[i].offsetHeight;
-            elements[i].style.marginTop = ((height - heightEle) / 2) + 'px';
-          }
-        };
-        window.onresize = resizeHandler;
-        resizeHandler();
-        break;
-      default:
-        break;
-    }
-  }
-};
-
-},{}],2:[function(require,module,exports){
-module.exports = {
-  handle: function(options) {
-    "use strict";
-
-    var selector = options.selector,
-      valueCss = options.valueCss;
-
-    // border-radius: Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+
-    // -moz-border-radius: Firefox 1-3.6
-    // -webkit-border-radius: Safari 3-4, iOS 1-3.2, Android 1.6-
-    // -khtml-border-radius: For old Konqueror browsers
-    // -behavior: IE 6-8
-    var elements = document.querySelectorAll(selector);
-    for (var i = 0; i < elements.length; i++) {
-      var cssText = elements[i].getAttribute('style').trim();
-      var semicolon = cssText[cssText.length - 1] == ';' ? '': ';';
-      elements[i].setAttribute('style', cssText + semicolon + 'border-radius:' + valueCss + '; -moz-border-radius:' + valueCss + '; -webkit-border-radius:' + valueCss +
-                                        '; -khtml-border-radius:' + valueCss + '; -behavior: url(../vendors/css-pie/2.0-beta-1/PIE.htc)');
-    }
-  }
-};
-
-},{}],3:[function(require,module,exports){
-module.exports = {
-  'cs-v-text-align': require('./alignment/cs-v-text-align'),
-  'cs-border-radius': require('./border/cs-border-radius')
-};
-
-},{"./alignment/cs-v-text-align":1,"./border/cs-border-radius":2}],4:[function(require,module,exports){
 (function() {
   "use strict";
 
@@ -131,5 +74,3 @@ module.exports = {
 
   window.crossStyle.bootstrap();
 })();
-
-},{"./configurations":3}]},{},[4]);

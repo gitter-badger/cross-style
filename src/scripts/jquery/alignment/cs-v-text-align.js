@@ -11,7 +11,8 @@ module.exports = {
         case 'center':
           $(window).resize(function() {
             var height = $(this).height();
-            $(selector).css('margin-top', (height / 2) + 'px');
+            var heightEle = $(selector).height();
+            $(selector).css('margin-top', ((height - heightEle) / 2) + 'px');
           });
           $(window).trigger('resize');
           break;
