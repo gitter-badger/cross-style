@@ -10358,7 +10358,6 @@ module.exports = {
 
     var $ = require('jquery'),
       selector = options.selector,
-      keyCss = options.keyCss,
       valueCss = options.valueCss;
 
     if ($) {
@@ -10379,18 +10378,39 @@ module.exports = {
 
 },{"jquery":1}],3:[function(require,module,exports){
 module.exports = {
-  'cs-v-text-align': require('./alignment/v-text-align')
+  handle: function(options) {
+    "use strict";
+
+    var $ = require('jquery'),
+      selector = options.selector,
+      valueCss = options.valueCss;
+
+    if ($) {
+      $(selector).css('border-radius', valueCss)                         // Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+
+                 .css('-moz-border-radius', valueCss)                    // Firefox 1-3.6
+                 .css('-webkit-border-radius', valueCss)                 // Safari 3-4, iOS 1-3.2, Android 1.6-
+                 .css('-khtml-border-radius', valueCss)                  // For old Konqueror browsers
+                 .css('behavior', 'url(../vendors/css-pie/2.0-beta-1/PIE.htc)');        // IE 6-8
+    }
+  }
 };
 
-},{"./alignment/v-text-align":2}],4:[function(require,module,exports){
+},{"jquery":1}],4:[function(require,module,exports){
+module.exports = {
+  'cs-v-text-align': require('./alignment/cs-v-text-align'),
+  'cs-border-radius': require('./border/cs-border-radius')
+};
+
+},{"./alignment/cs-v-text-align":2,"./border/cs-border-radius":3}],5:[function(require,module,exports){
 (function($) {
   "use strict";
 
   window.crossStyle = {
     cssProperties: require('./configurations'),
-    cssRulesPattern: /(([a-zA-Z\n\s.#-]+){([a-zA-Z:;\n\s-]+)}){1}/g,
     spacePattern: /\s/g,
-    cssRulePattern: /([a-zA-Z\n\s.#-]+){([a-zA-Z:;\n\s-]+)}/i,
+    cssRulesPattern: /([^{]+)({+)(([^{:]+)(:+)([^}:;]+)(;?)[\s\n]?)+(}+)/g,
+    cssSelectorPattern: /([^{}]+){[^{}]+}/g,
+    cssPropertyPattern: /([^{}:;]+)([:]+)([^{}:;]+)([;]?)/g,
     bootstrap: function() {
       var cssNum = document.styleSheets.length;
       var timeout = setInterval(function() {
@@ -10400,11 +10420,11 @@ module.exports = {
         }
       }, 10);
     },
-    handleCssProperty: function(rule, propertyKey, propertyValue) {
+    handleCssProperty: function(selector, propertyKey, propertyValue) {
       $.each(window.crossStyle.cssProperties, function(key, value) {
         if (propertyKey == key) {
           value.handle({
-            selector: rule,
+            selector: selector,
             keyCss: propertyKey,
             valueCss: propertyValue
           });
@@ -10412,13 +10432,14 @@ module.exports = {
         }
       });
     },
-    handleCssProperties: function (rule, properties) {
-      $.each(properties, function (k, property) {
-        property = property.split(':');
-        if (property.length == 2) {
-          var propertyKey = property[0];
-          var propertyValue = property[1];
-          window.crossStyle.handleCssProperty(rule, propertyKey, propertyValue);
+    handleCssProperties: function (selector, cssProperties) {
+      $.each(cssProperties, function (i, cssProperty) {
+        window.crossStyle.cssPropertyPattern.lastIndex = 0;
+        var extractedCssProperty = window.crossStyle.cssPropertyPattern.exec(cssProperty);
+        if(extractedCssProperty.length >= 4) {
+            var propertyKey = extractedCssProperty[1];
+            var propertyValue = extractedCssProperty[3];
+            window.crossStyle.handleCssProperty(selector, propertyKey, propertyValue);
         }
       });
     },
@@ -10427,12 +10448,11 @@ module.exports = {
       var cssRules = cssText.match(window.crossStyle.cssRulesPattern);
 
       $.each(cssRules, function(i, cssRule) {
-        cssRule = cssRule.match(window.crossStyle.cssRulePattern);
-        for (var j = 1; j < cssRule.length; j += 2) {
-          var rule = cssRule[j];
-          var properties = cssRule[j + 1].split(';');
-          window.crossStyle.handleCssProperties(rule, properties);
-        }
+        window.crossStyle.cssSelectorPattern.lastIndex = 0;
+        var selector = window.crossStyle.cssSelectorPattern.exec(cssRule)[1];
+        var cssProperties = cssRule.match(window.crossStyle.cssPropertyPattern);
+
+        window.crossStyle.handleCssProperties(selector, cssProperties);
       });
     },
     handle: function(styles) {
@@ -10445,4 +10465,4 @@ module.exports = {
   window.crossStyle.bootstrap();
 })(require('jquery'));
 
-},{"./configurations":3,"jquery":1}]},{},[4]);
+},{"./configurations":4,"jquery":1}]},{},[5]);

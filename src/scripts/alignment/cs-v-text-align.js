@@ -4,7 +4,6 @@ module.exports = {
 
     var $ = require('jquery'),
       selector = options.selector,
-      keyCss = options.keyCss,
       valueCss = options.valueCss;
 
     if ($) {

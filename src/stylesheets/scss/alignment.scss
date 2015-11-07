@@ -1,9 +1,11 @@
 @mixin h-text-center() {
   text-align: center;
 }
+
 @mixin v-text-center() {
   cs-v-text-align: center;
 }
+
 @mixin b-text-center()
 {
 	@include h-text-center();

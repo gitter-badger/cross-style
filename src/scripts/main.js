@@ -3,9 +3,10 @@
 
   window.crossStyle = {
     cssProperties: require('./configurations'),
-    cssRulesPattern: /(([a-zA-Z\n\s.#-]+){([a-zA-Z:;\n\s-]+)}){1}/g,
     spacePattern: /\s/g,
-    cssRulePattern: /([a-zA-Z\n\s.#-]+){([a-zA-Z:;\n\s-]+)}/i,
+    cssRulesPattern: /([^{]+)({+)(([^{:]+)(:+)([^}:;]+)(;?)[\s\n]?)+(}+)/g,
+    cssSelectorPattern: /([^{}]+){[^{}]+}/g,
+    cssPropertyPattern: /([^{}:;]+)([:]+)([^{}:;]+)([;]?)/g,
     bootstrap: function() {
       var cssNum = document.styleSheets.length;
       var timeout = setInterval(function() {
@@ -15,11 +16,11 @@
         }
       }, 10);
     },
-    handleCssProperty: function(rule, propertyKey, propertyValue) {
+    handleCssProperty: function(selector, propertyKey, propertyValue) {
       $.each(window.crossStyle.cssProperties, function(key, value) {
         if (propertyKey == key) {
           value.handle({
-            selector: rule,
+            selector: selector,
             keyCss: propertyKey,
             valueCss: propertyValue
           });
@@ -27,13 +28,14 @@
         }
       });
     },
-    handleCssProperties: function (rule, properties) {
-      $.each(properties, function (k, property) {
-        property = property.split(':');
-        if (property.length == 2) {
-          var propertyKey = property[0];
-          var propertyValue = property[1];
-          window.crossStyle.handleCssProperty(rule, propertyKey, propertyValue);
+    handleCssProperties: function (selector, cssProperties) {
+      $.each(cssProperties, function (i, cssProperty) {
+        window.crossStyle.cssPropertyPattern.lastIndex = 0;
+        var extractedCssProperty = window.crossStyle.cssPropertyPattern.exec(cssProperty);
+        if(extractedCssProperty.length >= 4) {
+            var propertyKey = extractedCssProperty[1];
+            var propertyValue = extractedCssProperty[3];
+            window.crossStyle.handleCssProperty(selector, propertyKey, propertyValue);
         }
       });
     },
@@ -42,12 +44,11 @@
       var cssRules = cssText.match(window.crossStyle.cssRulesPattern);
 
       $.each(cssRules, function(i, cssRule) {
-        cssRule = cssRule.match(window.crossStyle.cssRulePattern);
-        for (var j = 1; j < cssRule.length; j += 2) {
-          var rule = cssRule[j];
-          var properties = cssRule[j + 1].split(';');
-          window.crossStyle.handleCssProperties(rule, properties);
-        }
+        window.crossStyle.cssSelectorPattern.lastIndex = 0;
+        var selector = window.crossStyle.cssSelectorPattern.exec(cssRule)[1];
+        var cssProperties = cssRule.match(window.crossStyle.cssPropertyPattern);
+
+        window.crossStyle.handleCssProperties(selector, cssProperties);
       });
     },
     handle: function(styles) {

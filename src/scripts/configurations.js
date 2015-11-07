@@ -1,3 +1,4 @@
 module.exports = {
-  'cs-v-text-align': require('./alignment/v-text-align')
+  'cs-v-text-align': require('./alignment/cs-v-text-align'),
+  'cs-border-radius': require('./border/cs-border-radius')
 };

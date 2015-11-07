@@ -1,4 +1,5 @@
 @import 'alignment';
+@import 'border';
 
 .text-center {
   @include h-text-center();
@@ -10,4 +11,8 @@
 
 .b-text-center {
   @include b-text-center();
+}
+
+.cs-border-radius {
+  @include border-radius(10px);
 }

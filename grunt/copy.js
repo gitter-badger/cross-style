@@ -31,6 +31,12 @@ module.exports = {
       dest: 'build/stylesheets/stylus/'
     },
     {
+      expand: true,
+      cwd: 'src/vendors',
+      src: '**',
+      dest: 'build/vendors/'
+    },
+    {
       src: 'src/index.html',
       dest: 'build/index.html'
     },

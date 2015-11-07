@@ -7,3 +7,6 @@
 .b-text-center {
   text-align: center;
   cs-v-text-align: center; }
+
+.cs-border-radius {
+  cs-border-radius: 10px; }
