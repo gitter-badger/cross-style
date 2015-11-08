@@ -1,6 +1,6 @@
-# CROSS STYLE
+###CROSS STYLE
 Make your website become the cross browser and extensible.
 
-![Cross Browser](http://themes.themeton.com/emerald/files/2013/02/cross-browser.jpg)
+![Cross Browsers](http://www.ilightbox.net/assets/img/cross-browser.png)
 
 Updating the documents...
