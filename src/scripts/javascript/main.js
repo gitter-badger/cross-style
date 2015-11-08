@@ -67,8 +67,8 @@
     handleCssProperty: function(selector, propertyKey, propertyValue) {
       for (var cssPropertyConfiguration in window.crossStyle.cssProperties) {
         var key = cssPropertyConfiguration;
-        var value = window.crossStyle.cssProperties[key];
         if (propertyKey == key) {
+          var value = window.crossStyle.cssProperties[key];
           value.handle({
             selector: selector,
             keyCss: propertyKey,
