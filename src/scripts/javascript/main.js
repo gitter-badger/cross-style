@@ -7,6 +7,54 @@
     cssRulesPattern: /([^{]+)({+)(([^{:]+)(:+)([^}:;]+)(;?)[\s\n]?)+(}+)/g,
     cssSelectorPattern: /([^{}]+){[^{}]+}/g,
     cssPropertyPattern: /([^{}:;]+)([:]+)([^{}:;]+)([;]?)/g,
+    helpers: {
+      ajax: {
+        xmlHttpFactories: [
+          function() {
+            return new XMLHttpRequest();
+          },
+          function() {
+            return new ActiveXObject("Msxml2.XMLHTTP");
+          },
+          function() {
+            return new ActiveXObject("Msxml3.XMLHTTP");
+          },
+          function() {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+          }
+        ],
+        createXmlHttpObject: function() {
+          var xmlHttp = false;
+          for (var i = 0; i < window.crossStyle.helpers.ajax.xmlHttpFactories.length; i++) {
+            try {
+              xmlHttp = window.crossStyle.helpers.ajax.xmlHttpFactories[i]();
+            } catch (e) {
+              continue;
+            }
+            break;
+          }
+          return xmlHttp;
+        },
+        sendRequest: function(url, data, callback) {
+          var request = window.crossStyle.helpers.ajax.createXmlHttpObject();
+          if (!request) return;
+          var method = (data) ? "POST" : "GET";
+          request.open(method, url, true);
+          request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          if (data)
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.onreadystatechange = function() {
+            if (request.readyState != 4) return;
+            if (request.status != 200 && request.status != 304) {
+              return;
+            }
+            callback(request);
+          };
+          if (request.readyState == 4) return;
+          request.send(data);
+        }
+      }
+    },
     bootstrap: function() {
       var cssNum = document.styleSheets.length;
       var timeout = setInterval(function() {
@@ -56,14 +104,9 @@
       }
     },
     getStylesheet: function(stylesheetUrl) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-          window.crossStyle.handleSingleStylesheet(xhttp.responseText);
-        }
-      };
-      xhttp.open("GET", stylesheetUrl, true);
-      xhttp.send();
+      window.crossStyle.helpers.ajax.sendRequest(stylesheetUrl, null, function(response) {
+        window.crossStyle.handleSingleStylesheet(response.responseText);
+      });
     },
     handle: function(styles) {
       for (var i = 0; i < styles.length; i++) {
