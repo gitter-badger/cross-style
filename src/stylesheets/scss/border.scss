@@ -1,3 +1,23 @@
 @mixin border-radius($radius) {
   cs-border-radius: $radius;
 }
+
+@mixin border-top-left-radius($radius)
+{
+	cs-border-top-left-radius: $radius;
+}
+
+@mixin border-top-right-radius($radius)
+{
+	cs-border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-left-radius($radius)
+{
+	cs-border-bottom-left-radius: $radius;
+}
+
+@mixin border-bottom-right-radius($radius)
+{
+	cs-border-bottom-right-radius: $radius;
+}

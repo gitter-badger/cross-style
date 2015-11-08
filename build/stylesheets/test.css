@@ -10,3 +10,15 @@
 
 .cs-border-radius {
   cs-border-radius: 10px; }
+
+.cs-border-top-left-radius {
+  cs-border-top-left-radius: 10px; }
+
+.cs-border-top-right-radius {
+  cs-border-top-right-radius: 10px; }
+
+.cs-border-bottom-left-radius {
+  cs-border-bottom-left-radius: 10px; }
+
+.cs-border-bottom-right-radius {
+  cs-border-bottom-right-radius: 10px; }

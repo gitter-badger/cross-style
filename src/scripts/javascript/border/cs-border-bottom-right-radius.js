@@ -16,8 +16,8 @@ module.exports = {
     for (var i = 0; i < elements.length; i++) {
       var cssText = elements[i].getAttribute('style').trim();
       var semicolon = cssText[cssText.length - 1] == ';' ? '' : ';';
-      elements[i].setAttribute('style', cssText + semicolon + 'border-radius:' + valueCss + '; -moz-border-radius:' + valueCss + '; -webkit-border-radius:' + valueCss +
-        '; -khtml-border-radius:' + valueCss + '; behavior: url(../vendors/css-pie/2.0-beta-1/PIE.htc)');
+      elements[i].setAttribute('style', cssText + semicolon + 'border-bottom-right-radius:' + valueCss + '; -moz-border-bottom-right-radius:' + valueCss + '; -webkit-border-bottom-right-radius:' + valueCss +
+        '; -khtml-border-bottom-right-radius:' + valueCss + '; behavior: url(../vendors/css-pie/2.0-beta-1/PIE.htc)');
     }
   }
 };

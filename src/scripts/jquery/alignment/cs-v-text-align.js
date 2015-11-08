@@ -10,7 +10,7 @@ module.exports = {
       switch (valueCss) {
         case 'center':
           $(window).resize(function() {
-            var height = $(this).height();
+            var height = $(window).height();
             var heightEle = $(selector).height();
             $(selector).css('margin-top', ((height - heightEle) / 2) + 'px');
           });
